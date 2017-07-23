@@ -4,6 +4,19 @@
 		<title>React</title>
 	</head>
 	<body>
+		<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyCcznLUPAXrZ-rkmY7Agd9gpIvts2YNg2c",
+	    authDomain: "tracker-174521.firebaseapp.com",
+	    databaseURL: "https://tracker-174521.firebaseio.com",
+	    projectId: "tracker-174521",
+	    storageBucket: "tracker-174521.appspot.com",
+	    messagingSenderId: "561492554191"
+	  };
+	  firebase.initializeApp(config);
+	</script>
 		<div id="app" />
 		<script src="./dist/bundle.js" />
 	</body>

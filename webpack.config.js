@@ -2,7 +2,7 @@
 var HTMLWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: 'index.html',
-  filename: 'index.html', 
+  filename: 'index.html',
   inject: 'body'
 });
 
@@ -20,14 +20,16 @@ var config = {
         query: {
           presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
   plugins: [HTMLWebpackPluginConfig]
- 
+
 };
 
 
 module.exports = config;
-
-

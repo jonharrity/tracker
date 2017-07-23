@@ -1,0 +1,28 @@
+body {
+  text-align: center;
+}
+
+.square {
+  background-color: blue;
+  width: 400px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  border-radius: 15%;
+  margin-bottom: 20px;
+}
+.square-title {
+  padding-top: 50px;
+  font: 22px arial;
+}
+
+.note {
+  border-style: solid;
+  border-radius: 15%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
