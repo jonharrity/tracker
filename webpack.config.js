@@ -7,7 +7,7 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 });
 
 var config = {
-  entry: './app.js',
+  entry: './src/app.js',
   output: {
     filename: './dist/bundle.js'
   },
