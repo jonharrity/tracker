@@ -1,15 +1,8 @@
 
-const express = require('express');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const app = express();
+ReactDOM.render(<div>hello from react!</div>, document.getElementById('app'));
 
-app.get('/', (req, res) => {
-  res.status(200).send('Hello, world!').end();
-});
 
-// Start the server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
-});
+
