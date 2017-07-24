@@ -1,9 +1,17 @@
+
+.app {
+  background-color: 8ff7cf;
+}
+
+
+
+
 body {
   text-align: center;
 }
 
 .square {
-  background-color: blue;
+  border-style: outset;
   width: 400px;
   height: 400px;
   margin-left: auto;

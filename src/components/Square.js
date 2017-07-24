@@ -22,11 +22,17 @@ export default class Square extends React.Component
 			return <Note key={key} data={this.state.data[key]} />;
 		});
 
-		return 	<div className='square'>
+		return 	<div className='square' style={this.getStyle()}>
 							<div className='square-title'>{this.props.name}</div>
 							{notes}
 						</div>;
 
+	}
+
+	getStyle() {
+		return {
+			backgroundColor: this.props.bgcolor
+		}
 	}
 
 
