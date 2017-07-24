@@ -3,6 +3,16 @@
   background-color: 8ff7cf;
 }
 
+.user-status {
+  border-radius: 35%;
+  width: 400px;
+  height: 80x;
+  padding-bottom: 10px;
+  line-height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #cff4f7;
+}
 
 
 

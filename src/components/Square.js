@@ -19,7 +19,7 @@ export default class Square extends React.Component
 	{
 		var keys = Object.keys(this.state.data);
 		var notes = keys.map( (key) => {
-			return <Note key={key} data={this.state.data[key]} />;
+			return <Note key={key} text={this.state.data[key]} />;
 		});
 
 		return 	<div className='square' style={this.getStyle()}>

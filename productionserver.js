@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile('./index.html').end();
+  res.status(200).sendFile('index.html').end();
 });
 
 // Start the server

@@ -1,6 +1,7 @@
 var React = require('react');
 
 import Square from './Square.js';
+import UserStatus from './UserStatus.js';
 import './styles.css';
 
 export default class App extends React.Component
@@ -21,20 +22,24 @@ export default class App extends React.Component
 
 	render()
 	{
+		var userStatus = <UserStatus />;
+
 		if( this.state.data === 'loading' )
 		{
 			return <div className='app'>
+							{userStatus}
 							Loading squares...
 						</div>;
 		}
 
-		
+
 
 		var squareKeys = Object.keys(this.state.data);
 		var squareCount = squareKeys.length;
 		if( squareCount === 0 )
 		{
 			return 	<div className='app'>
+								{userStatus}
 								no squares :(
 							</div>;
 		}
@@ -49,6 +54,7 @@ export default class App extends React.Component
 		});
 
 		return 	<div className='app'>
+							{userStatus}
 							{squares}
 						</div>;
 	}
