@@ -1,5 +1,5 @@
 {
-  "name": "appengine-hello-world",
+  "name": "tracker-174521",
   "description": "tracks data",
   "version": "0.0.1",
   "private": true,
@@ -9,16 +9,13 @@
     "type": "git",
     "url": "https://github.com/jonharrity/tracker.git"
   },
-  "cloud": {
-    "msg": "Hello, world!"
-  },
   "engines": {
     "node": ">=4.3.2"
   },
   "scripts": {
     "deploy": "gcloud app deploy",
     "build": "webpack",
-    "start": "node server.js"
+    "start": "node productionserver.js"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
