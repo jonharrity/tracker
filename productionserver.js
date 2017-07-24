@@ -4,8 +4,11 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.status(200).sendFile('index.html').end();
+  res.sendFile(__dirname + '/index.html');
 });
+app.get('/bundle.js', (req, res) => {
+  res.sendFile(__dirname + '/dist/bundle.js');
+})
 
 // Start the server
 const PORT = process.env.PORT || 3000;
