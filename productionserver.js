@@ -8,6 +8,9 @@ app.get('/', (req, res) => {
 });
 app.get('/bundle.js', (req, res) => {
   res.sendFile(__dirname + '/dist/bundle.js');
+});
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(__dirname + '/favicon.ico');
 })
 
 // Start the server

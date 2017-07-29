@@ -1,51 +1,52 @@
 var React = require('react');
 
 
+import User from './User.js';
+
 
 
 export default class UserStatus extends React.Component
 {
 
-
     constructor(props)
     {
       super(props);
 
-      var email = this.getEmail();
+      this.handleLogin = this.handleLogin.bind(this);
+      this.setAdminStatus = this.setAdminStatus.bind(this);
+
+      new User().isAdmin(this.setAdminStatus);
 
       this.state = {
-        email: email,
+          isAdmin: false,
+          email: new User().getEmail(),
       }
-      this.handleLogin = this.handleLogin.bind(this);
     }
 
-    getEmail()
-    {
-      var currentUser = firebase.auth().currentUser;
-      var email = null;
-      if( currentUser )
-        email = currentUser.email;
-      return email;
-    }
 
     render()
     {
-      if( this.state.email == null )
-      {
-        var panel = <div>
-                      not currently logged in
-                      <br />
-                      <button onClick={this.handleLogin}>login</button>
-                    </div>;
-      }
-      else
-      {
-        var panel =   <div>
-                        logged in as {this.state.email}
-                        <br />
-                        <button onClick={this.handleLogout}>logout</button>
-                      </div>;
-      }
+        if( this.state.email )
+        {
+            var adminLabel = '';
+            if( this.state.isAdmin )
+                adminLabel = '[admin]';
+
+            var panel =   <div>
+                            logged in as {this.state.email} {adminLabel}
+                            {}
+                            <br />
+                            <button onClick={this.handleLogout}>logout</button>
+                            </div>;
+        }
+        else
+        {
+            var panel = <div>
+                            not currently logged in
+                            <br />
+                            <button onClick={this.handleLogin}>login</button>
+                        </div>;
+        }
 
 
 
@@ -54,22 +55,23 @@ export default class UserStatus extends React.Component
               </div>;
     }
 
+    setAdminStatus(newStatus)
+    {
+        this.setState({
+            isAdmin: newStatus
+        });
+    }
 
 
     handleLogin()
     {
-      var provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider)
-      .then( (result) => {
-        this.setState({
-          email: this.getEmail()
-        });
-      });
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider);
     }
 
     handleLogout()
     {
-      firebase.auth().signOut();
+        firebase.auth().signOut();
     }
 
 
