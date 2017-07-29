@@ -14,8 +14,11 @@ export default class UserStatus extends React.Component
 
       this.handleLogin = this.handleLogin.bind(this);
       this.setAdminStatus = this.setAdminStatus.bind(this);
+      this.handleUIDChange = this.handleUIDChange.bind(this);
 
-      new User().isAdmin(this.setAdminStatus);
+      var user = new User();
+      user.isAdmin(this.setAdminStatus);
+      user.onUID(this.handleUIDChange);
 
       this.state = {
           isAdmin: false,
@@ -62,16 +65,32 @@ export default class UserStatus extends React.Component
         });
     }
 
+    handleUIDChange(newUID)
+    {
+        var user = new User();
+        user.isAdmin(this.setAdminStatus);
+        this.setState({
+            email: user.getEmail(),
+        });
+    }
 
     handleLogin()
     {
         var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider);
+        firebase.auth().signInWithPopup(provider)
+        .then( (result) =>
+        {
+            new User().getUID();
+        });
     }
 
     handleLogout()
     {
-        firebase.auth().signOut();
+        firebase.auth().signOut()
+        .then( (result) =>
+        {
+            new User().getUID();
+        });
     }
 
 

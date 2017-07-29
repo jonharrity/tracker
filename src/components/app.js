@@ -82,10 +82,12 @@ export default class App extends React.Component
 			uid: newUID,
 		}, () => {
 			if( this.state.uid)
+			{
 				firebase.database().ref('/users/'+this.state.uid+'/data').once('value')
 				.then( (snapshot) => {
 					this.setState({user: snapshot.val()});
 				});
+			}
 		});
 
 	}

@@ -30,7 +30,11 @@ class User
         }
         else
         {
-            return null;
+            if( User.uid )
+            {
+                User.uid = null;
+                this.handleUIDChange(null);
+            }
         }
     }
 
