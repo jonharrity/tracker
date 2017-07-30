@@ -16,22 +16,24 @@ export default class App extends React.Component
 		this.uidChangeCallback = this.uidChangeCallback.bind(this);
 		this.user.onUID(this.uidChangeCallback);
 		this.state = {
-			public: null,
-			user: null,
+			publicSquareData: null,
+			userSquareData: null,
 			userData: 'loading',
 			uid: this.user.getUID(),
+			isAdmin: false,
 		}
 		var db = firebase.database();
 		db.ref('/public').once('value')
 		.then( (snapshot) => {
-			this.setState({public: snapshot.val()});
+			this.setState({publicSquareData: snapshot.val()});
 		});
 
 		if( this.state.uid )
 		{
+			console.log('has user in constructor , actually entering if');
 			db.ref('/users/'+this.state.uid+'/data').once('value')
 			.then( (snapshot) => {
-				this.setState({user: snapshot.val()});
+				this.setState({userSquareData: snapshot.val()});
 			});
 		}
 		this.squareCount = -1;
@@ -40,7 +42,7 @@ export default class App extends React.Component
 
 	render()
 	{
-		if( this.state.public === null && this.state.user === null)
+		if( this.state.publicSquareData === null && this.state.userSquareData === null)
 		{
 			return	<div className='app'>
 						{userStatus}
@@ -51,10 +53,10 @@ export default class App extends React.Component
 		var userStatus = <UserStatus userData={this.state.userData}/>;
 
 		var publicKeys = [], userKeys = [];
-		if( this.state.public )
-			var publicKeys = Object.keys(this.state.public);
-		if( this.state.user)
-			var userKeys = Object.keys(this.state.user);
+		if( this.state.publicSquareData )
+			var publicKeys = Object.keys(this.state.publicSquareData);
+		if( this.state.userSquareData)
+			var userKeys = Object.keys(this.state.userSquareData);
 		var squareCount = publicKeys.length + userKeys.length;
 		if( squareCount === 0 )
 		{
@@ -64,10 +66,16 @@ export default class App extends React.Component
 							</div>;
 		}
 
-		if( this.state.public )
-			var publicSquares = this.getSquares(this.state.public, 'public squares');
-		if( this.state.user )
-			var userSquares = this.getSquares(this.state.user, 'user squares');
+		if( this.state.publicSquareData )
+		{
+			var publicSquares = this.getSquares(this.state.publicSquareData,
+			'public squares', this.state.isAdmin, '/public/');
+		}
+		if( this.state.userSquareData )
+		{
+			var userSquares = this.getSquares(this.state.userSquareData, 'user squares',
+			true, '/users/'+this.state.uid +'/data/');
+		}
 
 		return 	<div className='app'>
 					{userStatus}
@@ -85,20 +93,34 @@ export default class App extends React.Component
 			{
 				firebase.database().ref('/users/'+this.state.uid+'/data').once('value')
 				.then( (snapshot) => {
-					this.setState({user: snapshot.val()});
+					this.setState({userSquareData: snapshot.val()});
+				});
+				this.user.isAdmin( (newStatus) =>
+				{
+					this.setState({
+						isAdmin: newStatus
+					});
 				});
 			}
 		});
 
 	}
 
-	getSquares(obj, label)
+	getSquares(obj, label, canEdit, baseRef)
 	{
 		var squares = Object.keys(obj).map( (key) => {
 			this.squareCount += 1;
 			if( this.squareCount == this.colors.length )
 				this.squareCount = 0;
-			return <Square bgcolor={this.colors[this.squareCount]} key={key} name={key} data={obj[key]} />
+
+			var ref = baseRef + key;
+			return 	<Square
+						canEdit={canEdit}
+						firebaseRef={ref}
+						bgcolor={this.colors[this.squareCount]}
+						key={key}
+						name={key}
+						data={obj[key]} />
 		});
 
 		if( squares )

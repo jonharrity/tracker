@@ -20,12 +20,17 @@ body {
   text-align: center;
 }
 
+:root {
+    background-color: #f9e5f9;
+}
+
 .square {
   width: 600px;
   height: 400px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
+  border-style: solid;
   border-radius: 15%;
   margin-bottom: 20px;
   overflow-y: auto;
